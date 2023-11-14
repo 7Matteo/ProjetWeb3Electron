@@ -1,15 +1,27 @@
-const information = document.getElementById('info')
-information.innerText = `Cette application utilise Chrome (v${versions.chrome()}), Node.js (v${versions.node()}), et Electron (v${versions.electron()})`
-
-const func = async () => {
-    const response = await window.versions.ping()
-    console.log(response) // Affichera 'pong'
-}
-  
-func()
-
-
 const body = document.querySelector("body");
+
+//list of notesµ
+let notes = []
+
+async function initializeNotes(){
+    notes = await window.data.read()
+    console.log(notes);
+    notes.forEach(element => {
+        const info = document.getElementById("info");
+        const div = document.createElement("div");
+        const h2 = document.createElement("h4");
+        const h3 = document.createElement("h6");
+        h2.innerText = 'Title : ' + element.title;
+        h3.innerText = 'Text : '+ element.text;
+        h2.appendChild(h3);
+        div.style.border = '2px solid';
+        div.appendChild(h2);
+        info.appendChild(div)
+    });
+}
+
+initializeNotes()
+
 
 // Create the form element
 const form = document.createElement('form');
@@ -72,9 +84,15 @@ function createNote(title,text){
     h2.appendChild(h3);
     div.style.border = '2px solid';
     div.appendChild(h2);
+    notes.push({title : title, text : text})
     return div
 }
 
 document.getElementById('toggle-dark-mode').addEventListener('click', async () => {
     await window.darkMode.toggle()
+})
+
+document.getElementById('saveButton').addEventListener('click', async () => {
+
+    await window.data.write(notes)
 })

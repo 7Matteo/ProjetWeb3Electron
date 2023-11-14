@@ -9,10 +9,6 @@ const func = async () => {
 func()
 
 
-
-
-
-
 const body = document.querySelector("body");
 
 // Create the form element
@@ -78,3 +74,7 @@ function createNote(title,text){
     div.appendChild(h2);
     return div
 }
+
+document.getElementById('toggle-dark-mode').addEventListener('click', async () => {
+    await window.darkMode.toggle()
+})

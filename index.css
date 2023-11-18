@@ -1,24 +1,28 @@
-#button{
-    position: absolute;
-    bottom: 20px; /* Ajustez la valeur selon votre préférence */
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 10px 20px;
-    background-color: #0077b6;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  #button:hover {
-    background-color: #005b8d;
-  }
-  
-  @media (prefers-color-scheme: dark) {
-    body { background: #333; color: white; }
-  }
-  
-  @media (prefers-color-scheme: light) {
-    body { background: #ddd; color: black; }
-  }
+#addNoteButton{
+  padding: 10px 20px;
+  background-color: #0077b6;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#addNoteButton:hover {
+  background-color: #005b8d;
+}
+
+#saveButton {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+
+}
+
+@media (prefers-color-scheme: dark) {
+  body { background: #333; color: white; }
+}
+
+@media (prefers-color-scheme: light) {
+  body { background: #ddd; color: black; }
+}
+

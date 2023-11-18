@@ -57,7 +57,8 @@ ipcMain.handle('data:read', () => {
     return JSON.parse(data);
   } catch (error) {
     console.error('Error reading notes:', error);
-    return { notes: [] };
+    const notes = []
+    return  notes;
   }
 })
 

@@ -5,7 +5,7 @@ let notes = []
 
 async function initializeNotes(){
     notes = await window.data.read()
-    console.log(notes );
+    console.log(notes);
     notes.forEach(element => {
         const info = document.getElementById("info");
         const div = document.createElement("div");

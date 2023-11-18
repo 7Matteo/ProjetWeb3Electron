@@ -1,12 +1,12 @@
 const body = document.querySelector("body");
 
-//list of notesµ
-let notes = []
+//list of notes
+let notes = [];
 
 async function initializeNotes(){
     notes = await window.data.read()
-    console.log(notes);
-    notes.forEach(element => {
+    console.log(notes[0]);
+    notes.foreach(element => {
         const info = document.getElementById("info");
         const div = document.createElement("div");
         const h2 = document.createElement("h4");
@@ -16,7 +16,7 @@ async function initializeNotes(){
         h2.appendChild(h3);
         div.style.border = '2px solid';
         div.appendChild(h2);
-        info.appendChild(div)
+        info.appendChild(div);
     });
 }
 

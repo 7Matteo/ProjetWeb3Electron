@@ -20,9 +20,11 @@ app.whenReady().then(() => {
   createWindow()
   const mainWindow = BrowserWindow.getAllWindows()[0];
 
-// Affichez un message dans la console Web de la fenêtre principale
-  mainWindow.webContents.openDevTools(); // Ouvrir la console Web
-  mainWindow.webContents.executeJavaScript('console.log("Ceci est un message');
+  mainWindow.webContents.openDevTools(); // Open the Web Console
+  mainWindow.webContents.executeJavaScript('console.log("Ceci est un message")')
+    .catch((error) => {
+      console.error('An error occurred while executing JavaScript:', error);
+    });
   
 })
 

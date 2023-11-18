@@ -1,5 +1,5 @@
 const { log } = require('console');
-const { app, BrowserWindow, ipcMain , nativeTheme} = require('electron')
+const { app, BrowserWindow, ipcMain , nativeTheme, Notification} = require('electron')
 const fs = require('fs');
 const path = require('node:path')
 
@@ -15,17 +15,20 @@ const createWindow = () => {
   win.setMenu(null);
 }
 
+
+
 app.whenReady().then(() => {
   ipcMain.handle('ping', () => 'pong')
   createWindow()
   const mainWindow = BrowserWindow.getAllWindows()[0];
 
-  mainWindow.webContents.openDevTools(); // Open the Web Console
-  mainWindow.webContents.executeJavaScript('console.log("Ceci est un message")')
-    .catch((error) => {
-      console.error('An error occurred while executing JavaScript:', error);
-    });
-  
+// Affichez un message dans la console Web de la fenêtre principale
+mainWindow.webContents.openDevTools(); // Open the Web Console
+mainWindow.webContents.executeJavaScript('console.log("Ceci est un message")')
+  .catch((error) => {
+    console.error('An error occurred while executing JavaScript:', error);
+  });
+
 })
 
 app.on('window-all-closed', () => {
@@ -75,3 +78,15 @@ ipcMain.handle('data:write', (event, notes) => {
     return { success: false, error: error.message };
   }
 });
+
+
+ipcMain.handle("notif:send", () => {
+  if (process.platform === 'win32')
+  {
+    app.setAppUserModelId("Projet Web3 Electron");
+  } 
+  const NOTIFICATION_BODY = 'Your notes have been saved !'
+
+  new Notification({ body: NOTIFICATION_BODY }).show()
+
+})

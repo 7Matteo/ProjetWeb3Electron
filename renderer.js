@@ -1,12 +1,12 @@
 const body = document.querySelector("body");
 
-//list of notes
-let notes = [];
+//list of notesÂµ
+let notes = []
 
 async function initializeNotes(){
     notes = await window.data.read()
-    console.log(notes[0]);
-    notes.foreach(element => {
+    console.log(notes);
+    notes.forEach(element => {
         const info = document.getElementById("info");
         const div = document.createElement("div");
         const h2 = document.createElement("h4");
@@ -16,7 +16,7 @@ async function initializeNotes(){
         h2.appendChild(h3);
         div.style.border = '2px solid';
         div.appendChild(h2);
-        info.appendChild(div);
+        info.appendChild(div)
     });
 }
 
@@ -95,4 +95,6 @@ document.getElementById('toggle-dark-mode').addEventListener('click', async () =
 document.getElementById('saveButton').addEventListener('click', async () => {
 
     await window.data.write(notes)
+    await window.notif.send();
 })
+

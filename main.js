@@ -1,72 +1,115 @@
-const { log } = require('console');
-const { app, BrowserWindow, ipcMain , nativeTheme, Notification} = require('electron')
+const { app, BrowserWindow, ipcMain, nativeTheme, Notification, Menu } = require('electron');
 const fs = require('fs');
-const path = require('node:path');  
+const path = require('path');
 
-const createWindow = () => {
-  const win = new BrowserWindow({
+let mainWindow;
+
+function createWindow() {
+  mainWindow = new BrowserWindow({
+    title: 'OmniTask',
+    icon: './src/img/wave.png',
     width: 1200,
     height: 800,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
     }
-  })
-  win.loadFile('index.html')
-  win.setMenu(null);
-}
-
-
-
-app.whenReady().then(() => {
-  ipcMain.handle('ping', () => 'pong')
-  createWindow()
-  const mainWindow = BrowserWindow.getAllWindows()[0];
-
-// Affichez un message dans la console Web de la fenêtre principale
-mainWindow.webContents.openDevTools(); // Open the Web Console
-mainWindow.webContents.executeJavaScript('console.log("Ceci est un message")')
-  .catch((error) => {
-    console.error('An error occurred while executing JavaScript:', error);
   });
 
-})
+  mainWindow.loadFile(path.join(__dirname, './src/renderer/index.html'));
+  mainWindow.setMenu(null);
+  mainWindow.on('closed', () => {
+    app.quit();
+  });
+}
+
+function loadPage(pagePath) {
+  mainWindow.loadFile(path.join(__dirname, pagePath));
+}
+
+function loadIndexPage() {
+  loadPage('./src/renderer/index.html');
+}
+
+function loadNotesPage() {
+  loadPage('./src/renderer/notes.html');
+}
+
+function loadAboutUsPage() {
+  loadPage('./src/renderer/aboutUs.html');
+}
+
+app.whenReady().then(() => {
+  ipcMain.handle('ping', () => 'pong');
+  createWindow();
+
+  ipcMain.handle('load-page', (event, pagePath) => {
+    loadPage(pagePath);
+  });
+
+   // Affichez un message dans la console Web de la fenêtre principale
+   mainWindow.webContents.openDevTools(); // Open the Web Console
+   mainWindow.webContents.executeJavaScript('console.log("Ceci est un message")')
+     .catch((error) => {
+       console.error('An error occurred while executing JavaScript:', error);
+     });
+
+  const template = [
+    {
+      label: 'Menu',
+      submenu: [
+        {
+          label: 'Home',
+          click: loadIndexPage,
+        },
+        {
+          label: 'Applications',
+          click: loadNotesPage,
+        },
+        {
+          label: 'About us',
+          click: loadAboutUsPage,
+        },
+        {
+          label: 'Quit',
+          accelerator: 'CmdOrCtrl+Q',
+          click: () => app.quit(),
+        },
+      ],
+    },
+  ];
+
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
+});
+
+
+app.on('activate', function () {
+  if (mainWindow === null) createWindow();
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
-    app.quit()
+    app.quit();
   }
-})
+});
 
-// dark mode
 ipcMain.handle('dark-mode:toggle', () => {
-  if (nativeTheme.shouldUseDarkColors) {
-    nativeTheme.themeSource = 'light'
-  } else {
-    nativeTheme.themeSource = 'dark'
-  }
-  return nativeTheme.shouldUseDarkColors
-})
+  nativeTheme.themeSource = nativeTheme.shouldUseDarkColors ? 'light' : 'dark';
+  return nativeTheme.shouldUseDarkColors;
+});
 
-
-//persistance des données
-//chemin du dossier des données de l'application
 const userDataPath = app.getPath('userData');
-
-// Définissez le chemin du fichier notes.json dans le dossier des données de l'application
 const notesFilePath = path.join(userDataPath, 'notes.json');
 
-// Lire les notes depuis le fichier JSON
 ipcMain.handle('data:read', () => {
   try {
     const data = fs.readFileSync(notesFilePath, 'utf8');
     return JSON.parse(data);
   } catch (error) {
     console.error('Error reading notes:', error);
-    const notes = []
-    return  notes;
+    return [];
   }
-})
-
+});
 
 ipcMain.handle('data:write', (event, notes) => {
   try {
@@ -79,14 +122,13 @@ ipcMain.handle('data:write', (event, notes) => {
   }
 });
 
+ipcMain.handle('notif:send', () => {
+  if (process.platform === 'win32') {
+    app.setAppUserModelId('Projet Web3 Electron');
+  }
+  const NOTIFICATION_BODY = 'Your notes have been saved!';
+  new Notification({ body: NOTIFICATION_BODY }).show();
+});
 
-ipcMain.handle("notif:send", () => {
-  if (process.platform === 'win32')
-  {
-    app.setAppUserModelId("Projet Web3 Electron");
-  } 
-  const NOTIFICATION_BODY = 'Your notes have been saved !'
 
-  new Notification({ body: NOTIFICATION_BODY }).show()
 
-})

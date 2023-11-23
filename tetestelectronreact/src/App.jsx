@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'; // Import Link
+import { HashRouter as Router, Route, Routes , Link } from 'react-router-dom'; // Import Link
+
 import Calculator from './component/Calculator/Calculator.jsx';
 import Note from './component/Note/Note.jsx';
 import Button from './component/Button/Button.jsx';
@@ -13,13 +14,10 @@ const App = () => {
   }
 
   return (
-    <div>
-
     <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
+        <nav >
+          <ul class = 'navbarUl'>
+            <li >
               <Link to="/">Home</Link>
             </li>
             <li>
@@ -31,20 +29,20 @@ const App = () => {
           </ul>
         </nav>
         <Routes>
-  <Route path='/'  element={
+  <Route path='/' element={
     <div>
       <h1>Home</h1>
-      <Button onClick={handleDarkMode}>Toggle Dark Mode</Button>
+      <button className='rien'  onClick={handleDarkMode}>Toggle Dark Mode</button>
     </div>
   } />
   <Route path="/calculator" element={<Calculator />} />
   <Route path="/note" element={<Note />} />
 </Routes>
 
-      </div>
+      
     </Router>
 
-    </div>
+  
   );
   
 };

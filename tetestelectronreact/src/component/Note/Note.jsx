@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
+import './Note.css'
 const isElectron = window && window.process && window.process.type;
 let ipcRenderer;
 
@@ -61,22 +61,29 @@ const Note = () => {
   } 
 
   return (
-    <div>
+    <div class = 'container'>
       <h2>Notes</h2>
+
+
+
+      <div className ='container' >
       <textarea
-        rows="4"
+        rows="2"
         cols="50"
         value={noteContent}
         onChange={handleNoteChange}
-        placeholder="Write your note here..."
+        placeholder="Write your title here..."
+        className='input-container'
       />
+      <br></br>
       <textarea
         rows="4"
         cols="50"
         value={noteTitle}
         onChange={handleTitleChange}
-        placeholder="Write your note here..."
+        placeholder="Write your content here..."
       />
+      </div>
       <br />
       <button onClick={handleSaveNote}>Add Note</button>
       <button onClick={saveNotesFile}>Save Note in file </button>
@@ -84,7 +91,7 @@ const Note = () => {
       {error && <div>Error: {error.message}</div>}
 
       <div>
-        <h3>Saved Notes</h3>
+        <h3 class = 'container'>Saved Notes</h3>
         <ul>
           {savedNotes.map((note, index) => (
             <div key={index}> 

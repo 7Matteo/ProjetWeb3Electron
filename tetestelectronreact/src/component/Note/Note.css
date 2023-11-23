@@ -1,0 +1,69 @@
+/* Appliquez ces styles dans votre fichier CSS */
+
+nav {
+    background-color: #3498db;
+    padding: 10px;
+    display: flex;
+    justify-content: center; /* Centre la barre de navigation horizontalement */
+    align-items: center; /* Centre la barre de navigation verticalement */
+  }
+  
+  .navbarUl {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  li {
+    margin-right: 20px;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Nouveau style pour la div qui prendra la place des liens */
+  .content {
+    flex-grow: 1; /* Permet à la div de prendre toute la place disponible */
+    padding: 20px; /* Ajoute un espace autour du contenu de la div */
+    background-color: #ecf0f1; /* Couleur de fond pour la div */
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column; /* Aligne les éléments verticalement */
+    align-items: center; /* Centre les éléments horizontalement */
+    justify-content: center; /* Centre les éléments verticalement */
+  
+  }
+
+
+.input-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .input-container input {
+    width: 200px;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #702323;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  
+  /* Note.css */
+
+.rien {
+}
+  

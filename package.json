@@ -16,8 +16,8 @@
     "define-data-property": "^1.1.1",
     "define-properties": "^1.2.1",
     "detect-node": "^2.1.0",
-    "electron": "^27.0.3",
     "electron-reload": "^2.0.0-alpha.1",
+    "electron-squirrel-startup": "^1.0.0",
     "end-of-stream": "^1.4.4",
     "env-paths": "^2.2.1",
     "es6-error": "^4.1.1",
@@ -74,17 +74,28 @@
     "yauzl": "^2.10.0"
   },
   "scripts": {
-    "start": "npx electronmon .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron-forge start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/7Matteo/ProjetWeb3Electron.git"
   },
-  "author": "",
+  "author": "BG team",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/7Matteo/ProjetWeb3Electron/issues"
   },
-  "homepage": "https://github.com/7Matteo/ProjetWeb3Electron#readme"
+  "homepage": "https://github.com/7Matteo/ProjetWeb3Electron#readme",
+  "devDependencies": {
+    "@electron-forge/cli": "^7.1.0",
+    "@electron-forge/maker-deb": "^7.1.0",
+    "@electron-forge/maker-rpm": "^7.1.0",
+    "@electron-forge/maker-squirrel": "^7.1.0",
+    "@electron-forge/maker-zip": "^7.1.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.1.0",
+    "electron": "^27.1.2"
+  }
 }

@@ -1,12 +1,10 @@
-const { app, BrowserWindow,ipcMain,nativeTheme, Notification,  } = require('electron');
+const { app, BrowserWindow,ipcMain,nativeTheme, Notification, Menu } = require('electron');
 const path = require('path');
 const fs = require('fs');
-import fetch from 'electron-fetch'
 
 
 let mainWindow
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
@@ -17,23 +15,28 @@ const createMainWindow = () => {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    //titleBarStyle: 'hidden',
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
   });
+  mainWindow.loadFile('index.html');
 
- 
-console.log(MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY);
-  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-  mainWindow.webContents.openDevTools();
+  // Créer le menu
+  const mainMenuTemplate = [  ];
 
+  // Créer le menu à partir du modèle
+  const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
 
-  // Cleanup when the window is closed
+  // Définir le menu principal
+  Menu.setApplicationMenu(mainMenu);
+
+   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+
   mainWindow.on('closed', () => {
     app.quit();
   });
 };
-
 
 
 app.on('ready', createMainWindow);
@@ -50,16 +53,6 @@ app.on('activate', () => {
   }
 });
 
-// Additional main process code goes here.
-
-app.whenReady().then(() => {
-   // Affichez un message dans la console Web de la fenêtre principale
-   mainWindow.webContents.openDevTools(); // Open the Web Console
-   mainWindow.webContents.executeJavaScript('console.log("Ceci est un message")')
-     .catch((error) => {
-       console.error('An error occurred while executing JavaScript:', error);
-     });
-});
 
 
 app.on('activate', function () {

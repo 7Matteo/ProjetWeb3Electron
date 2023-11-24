@@ -4,14 +4,10 @@ import { HashRouter as Router, Route, Routes , Link } from 'react-router-dom'; /
 
 import Calculator from './component/Calculator/Calculator.jsx';
 import Note from './component/Note/Note.jsx';
-import Button from './component/Button/Button.jsx';
+import Home from './component/Home/Home.jsx';
 
 const App = () => {
 
-  const handleDarkMode = async () => {
-    await window.darkMode.toggle();
-
-  }
 
   return (
     <Router>
@@ -29,20 +25,11 @@ const App = () => {
           </ul>
         </nav>
         <Routes>
-  <Route path='/' element={
-    <div>
-      <h1>Home</h1>
-      <button className='rien'  onClick={handleDarkMode}>Toggle Dark Mode</button>
-    </div>
-  } />
+  <Route path='/' element={<Home/>} />
   <Route path="/calculator" element={<Calculator />} />
   <Route path="/note" element={<Note />} />
 </Routes>
-
-      
     </Router>
-
-  
   );
   
 };

@@ -16,6 +16,7 @@
     "name": "MAXENCE VANBOCKSTAELE",
     "email": "maxence.vanbockstaele@student.vinci.be"
   },
+  
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.23.3",

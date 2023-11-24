@@ -1,6 +1,8 @@
 const { app, BrowserWindow,ipcMain,nativeTheme, Notification,  } = require('electron');
 const path = require('path');
 const fs = require('fs');
+import fetch from 'electron-fetch'
+
 
 let mainWindow
 
@@ -20,6 +22,8 @@ const createMainWindow = () => {
     },
   });
 
+ 
+console.log(MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY);
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
   mainWindow.webContents.openDevTools();
 
@@ -104,4 +108,6 @@ ipcMain.handle('notif:send', () => {
   const NOTIFICATION_BODY = 'Your notes have been saved!';
   new Notification({ body: NOTIFICATION_BODY }).show();
 });
+
+
 

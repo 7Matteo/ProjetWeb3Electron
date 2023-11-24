@@ -15,6 +15,16 @@ function createWindow() {
     }
   });
 
+  mainWindow = new BrowserWindow({
+    title: 'OmniTask',
+    icon: './src/img/wave.png',
+    width: 1200,
+    height: 800,
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js')
+    }
+    
+
   mainWindow.loadFile(path.join(__dirname, './src/renderer/index.html'));
   mainWindow.setMenu(null);
   mainWindow.on('closed', () => {

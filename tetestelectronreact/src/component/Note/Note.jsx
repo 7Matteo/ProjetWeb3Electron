@@ -1,33 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import './Note.css'
-const isElectron = window && window.process && window.process.type;
-let ipcRenderer;
 
-if (isElectron) {
-  ipcRenderer = window.require('electron').ipcRenderer;
-}
 
 const Note = () => {
   const [noteContent, setNoteContent] = useState('');
   const [noteTitle, setNoteTitle] = useState('');
 
   const [savedNotes, setSavedNotes] = useState([{title : "rere", content : "content"}]);
-  const [error, setError] = useState(null);
 
    useEffect(() =>{
     const getSavedNotes = async () => {
-      try {
+
        const notes = await window.data.read();
-       console.log(notes);
        setSavedNotes(notes)
-      } catch (err) {
-        setError(err);
-      }
+     
     };
 
     getSavedNotes();
-
-    // Cleanup event listeners when the component is unmounted
     
   }, []); 
   const handleNoteChange = (event) => {
@@ -40,18 +29,11 @@ const Note = () => {
 
   
   const handleSaveNote = () => {
-    try {
-      if (ipcRenderer && noteContent.trim() !== '') {
-        ipcRenderer.send('save-note', noteContent);
-        setNoteContent('')
-      }
+    
       setNoteContent('')
       setNoteTitle('')
       setSavedNotes( savedNotes.concat({content : noteContent, title : noteTitle}));
 
-    } catch (err) {
-      setError(err);
-    }
   };
 
   const saveNotesFile = async ()  =>{
@@ -88,7 +70,6 @@ const Note = () => {
       <button onClick={handleSaveNote}>Add Note</button>
       <button onClick={saveNotesFile}>Save Note in file </button>
 
-      {error && <div>Error: {error.message}</div>}
 
       <div>
         <h3 class = 'container'>Saved Notes</h3>

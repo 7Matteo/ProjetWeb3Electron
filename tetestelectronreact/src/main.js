@@ -2,6 +2,8 @@ const { app, BrowserWindow,ipcMain,nativeTheme, Notification,  } = require('elec
 const path = require('path');
 const fs = require('fs');
 
+let mainWindow
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -10,7 +12,7 @@ if (require('electron-squirrel-startup')) {
 const createMainWindow = () => {
 
 
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {

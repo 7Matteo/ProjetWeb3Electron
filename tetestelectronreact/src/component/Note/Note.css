@@ -64,6 +64,8 @@ nav {
   
   /* Note.css */
 
-.rien {
+#listOfNotes{
+  text-align: center;
+  padding: 0;
 }
   

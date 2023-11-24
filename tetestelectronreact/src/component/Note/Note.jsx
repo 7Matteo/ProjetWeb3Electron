@@ -70,8 +70,8 @@ const Note = () => {
       <textarea
         rows="2"
         cols="50"
-        value={noteContent}
-        onChange={handleNoteChange}
+        value={noteTitle}
+        onChange={handleTitleChange}
         placeholder="Write your title here..."
         className='input-container'
       />
@@ -79,8 +79,8 @@ const Note = () => {
       <textarea
         rows="4"
         cols="50"
-        value={noteTitle}
-        onChange={handleTitleChange}
+        value={noteContent}
+        onChange={handleNoteChange}
         placeholder="Write your content here..."
       />
       </div>
@@ -92,11 +92,11 @@ const Note = () => {
 
       <div>
         <h3 class = 'container'>Saved Notes</h3>
-        <ul>
+        <ul id="listOfNotes">
           {savedNotes.map((note, index) => (
             <div key={index}> 
-            <h2>Content {note.content}</h2>
-            <h3>Titre {note.title} </h3>
+            <h2>Titre {note.title} </h2>
+            <h3>Content {note.content}</h3>            
               </div> 
           ))}
         </ul>

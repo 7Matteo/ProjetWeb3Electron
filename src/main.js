@@ -15,23 +15,16 @@ const createMainWindow = () => {
   mainWindow = new BrowserWindow({
     width: 1200,
     height: 900,
-    //titleBarStyle: 'hidden',
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
   });
-  mainWindow.loadFile('index.html');
-
-  // Créer le menu
   const mainMenuTemplate = [  ];
-
-  // Créer le menu à partir du modèle
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
 
-  // Définir le menu principal
   Menu.setApplicationMenu(mainMenu);
 
-   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   mainWindow.on('closed', () => {
     app.quit();
@@ -52,7 +45,6 @@ app.on('activate', () => {
     createMainWindow();
   }
 });
-
 
 
 app.on('activate', function () {

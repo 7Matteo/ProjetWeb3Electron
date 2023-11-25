@@ -26,10 +26,3 @@ contextBridge.exposeInMainWorld('notif', {
   },
 });
 
-contextBridge.exposeInMainWorld('windowAPI', {
-  notif: {
-    showNotification: async (message) => {
-      return ipcRenderer.invoke('notif:send', message);
-    }
-  },
-});

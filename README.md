@@ -1,8 +1,10 @@
 # Projet WEb3 sur Electron
 
-##Authors
+Authors :
 - Choujaa Soulaimane
 - Elbouhtani Oussama
 - Fiore Matteo
 - Morabito Victor
-- Vanbockstaele Maxence 
+- Vanbockstaele Maxence
+
+  

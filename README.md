@@ -1,4 +1,4 @@
-# Projet WEb3 sur Electron
+# Projet WEb3 on Electron
 
 Authors :
 - Choujaa Soulaimane

@@ -4,11 +4,11 @@
 Application de note et de calculatrice avec electron et react.
 
 Installation et lancement :
--npm i
--npm start
+- npm i
+- npm start
 
 Pour empacter l'app et optenir un .exe :
--npm run make
+- npm run make
 
 
 Authors :
